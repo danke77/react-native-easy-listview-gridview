@@ -101,6 +101,8 @@ export default class EasyListView extends Component {
 
     this.onLoadMore = this._onLoadMore.bind(this)
     this.onRefresh = this._onRefresh.bind(this)
+    this.onSuccess = this._onSuccess.bind(this)
+    this.onFailure = this._onFailure.bind(this)
 
     // GridView
     this.renderGroup = this._renderGroup.bind(this)
@@ -281,19 +283,7 @@ export default class EasyListView extends Component {
       isEmpty: false,
       loadMoreEnable: false
     }, () => {
-      this.props.refreshHandler(this.state.pageNo)
-      .then(
-        (list) => {
-          var newData = this._getArray(list)
-          var allData = newData
-          this._onSuccess(allData, newData)
-        }
-      )
-      .catch(
-        (msg, error) => {
-          this._onFailure(msg, error)
-        }
-      )
+      this.props.refreshHandler(this.state.pageNo, this.onSuccess, this.onFailure)
     })
   }
 
@@ -312,23 +302,14 @@ export default class EasyListView extends Component {
       isEmpty: false,
       loadMoreEnable: true
     }, () => {
-      this.props.loadMoreHandler(this.state.pageNo)
-      .then(
-        (list) => {
-          var newData = this._getArray(list)
-          var allData = this.state.rawData.concat(newData)
-          this._onSuccess(allData, newData)
-        }
-      )
-      .catch(
-        (msg, error) => {
-          this._onFailure(msg, error)
-        }
-      )
+      this.props.loadMoreHandler(this.state.pageNo, this.onSuccess, this.onFailure)
     })
   }
 
-  _onSuccess(allData, newData) {
+  _onSuccess(list) {
+    var newData = list instanceof Array ? list : JSON.parse(list)
+    var allData = this.state.isFirstLoad ? newData : this.state.rawData.concat(newData)
+
     this._clearRefreshTimeout()
 
     this.setState({
@@ -362,7 +343,7 @@ export default class EasyListView extends Component {
   _setRefreshTimeout() {
     this.timer = setTimeout(() => {
       if (this.state.isRefreshing) {
-        this._onFailure('load fail...', null)
+        this.onFailure('load fail...', null)
       }
     }, this.props.timeout)
   }
@@ -375,15 +356,6 @@ export default class EasyListView extends Component {
     return this.state.dataSource.cloneWithRows(this.props.column === 1
               ? this.props.responseDataHandler(data)
               : this._groupItems(this.props.responseDataHandler(data)))
-  }
-
-  _getArray(list) {
-    if (list instanceof Array) {
-      return list
-    }
-    else {
-      return JSON.parse(list)
-    }
   }
 
   // GridView
