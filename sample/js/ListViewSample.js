@@ -32,10 +32,9 @@ export default class ListViewSample extends Component {
     )
   }
 
-  _renderItem(index, rowData, sectionID, rowID, highlightRow) {
+  _renderItem(rowData, sectionID, rowID, highlightRow) {
     return (
       <View
-        key={index}
         style={styles.rowContainer}>
         <TouchableHighlight
           style={{flex: 1}}
