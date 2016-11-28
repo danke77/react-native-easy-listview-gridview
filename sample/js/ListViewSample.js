@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import {
-  StyleSheet,
   Text,
   View,
   TouchableHighlight
 } from 'react-native'
 
 import EasyListView from './lib/EasyListView'
+import Styles from './Styles'
 
 const DATA_SIZE_PER_PAGE = 10
 
@@ -35,19 +35,19 @@ export default class ListViewSample extends Component {
   _renderItem(rowData, sectionID, rowID, highlightRow) {
     return (
       <View
-        style={styles.rowContainer}>
+        style={Styles.rowContainer}>
         <TouchableHighlight
           style={{flex: 1}}
           onPress= {() => alert(rowData)}>
           <View
-            style={styles.rowContent}>
+            style={Styles.rowContent}>
             <Text
-              style={styles.rowTitle}>
+              style={Styles.rowTitle}>
               {rowData}
             </Text>
           </View>
         </TouchableHighlight>
-        <View style={styles.separate}/>
+        <View style={Styles.separate}/>
       </View>
     )
   }
@@ -62,26 +62,3 @@ export default class ListViewSample extends Component {
     }, 1000)
   }
 }
-
-const styles = StyleSheet.create({
-  rowContainer: {
-    flex: 1,
-    overflow: 'hidden',
-    height: 50,
-    flexDirection: 'column'
-  },
-  rowContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-  },
-  rowTitle: {
-    color: '#333333',
-    fontSize: 15
-  },
-  separate: {
-    height: 0.5,
-    backgroundColor: '#bbbbbb'
-  }
-})

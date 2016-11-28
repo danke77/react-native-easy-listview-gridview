@@ -16,6 +16,7 @@ import * as Dimens from './Dimens'
 export default class EasyListView extends Component {
 
   static propTypes = {
+    isDataFixed: PropTypes.bool,
     autoRefresh: PropTypes.bool,
     timeout: PropTypes.number,
     contentContainerStyle: View.propTypes.style,
@@ -42,14 +43,16 @@ export default class EasyListView extends Component {
     loadingProgressBackgroundColor: PropTypes.string,
     loadFailContent: PropTypes.string,
     noMoreContent: PropTypes.string,
-    refreshHandler: PropTypes.func.isRequired,
-    loadMoreHandler: PropTypes.func.isRequired,
+    fixedData: PropTypes.array,
+    refreshHandler: PropTypes.func,
+    loadMoreHandler: PropTypes.func,
     responseDataHandler: PropTypes.func,
     // GridView
     column: PropTypes.number
   }
 
   static defaultProps = {
+    isDataFixed: false,
     autoRefresh: true,
     timeout: 10 * 1000,
     contentContainerStyle: {},
@@ -66,6 +69,7 @@ export default class EasyListView extends Component {
     loadingProgressBackgroundColor: 'white',
     loadFailContent: 'load fail...',
     noMoreContent: 'There is no more~',
+    fixedData: [],
     responseDataHandler: (list) => {
       return list
     },
@@ -85,7 +89,7 @@ export default class EasyListView extends Component {
       isLoadingMore: false,
       isError: false,
       isEmpty: false,
-      loadMoreEnable: false
+      loadMoreEnable: !this.props.isDataFixed
     }
 
     this.onChangeVisibleRows = this._onChangeVisibleRows.bind(this)
@@ -109,7 +113,13 @@ export default class EasyListView extends Component {
   }
 
   componentDidMount() {
-    if (this.props.autoRefresh) {
+    if (this.props.isDataFixed) {
+      this.setState({
+        rawData: this.props.fixedData,
+        dataSource: this._getDataSource(this.props.fixedData)
+      })
+    }
+    else if (this.props.autoRefresh) {
       this._onRefresh()
     }
   }
@@ -139,7 +149,9 @@ export default class EasyListView extends Component {
           onEndReached={this.onLoadMore}
           onEndReachedThreshold={this.props.onEndReachedThreshold}
           refreshControl={
-            <RefreshControl
+            this.props.isDataFixed
+            ? null
+            : <RefreshControl
               refreshing={this.state.isRefreshing}
               onRefresh={this.onRefresh}
               title={this.props.loadingTitle}
@@ -147,7 +159,8 @@ export default class EasyListView extends Component {
               tintColor={this.props.loadingTintColor}
               colors={this.props.loadingColors}
               progressBackgroundColor={this.props.loadingProgressBackgroundColor}
-            />}
+            />
+          }
         />
       </View>
     )
@@ -179,6 +192,10 @@ export default class EasyListView extends Component {
   }
 
   _renderFooter () {
+    if (this.props.isDataFixed) {
+      return null
+    }
+
     if (!this.state.loadMoreEnable
         && !this.state.isEmpty
         && !this.state.isLoadingMore
@@ -283,6 +300,7 @@ export default class EasyListView extends Component {
       isEmpty: false,
       loadMoreEnable: false
     }, () => {
+      this.props.refreshHandler &&
       this.props.refreshHandler(this.state.pageNo, this.onSuccess, this.onFailure)
     })
   }
@@ -302,6 +320,7 @@ export default class EasyListView extends Component {
       isEmpty: false,
       loadMoreEnable: true
     }, () => {
+      this.props.loadMoreHandler &&
       this.props.loadMoreHandler(this.state.pageNo, this.onSuccess, this.onFailure)
     })
   }
