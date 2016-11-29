@@ -1,21 +1,38 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native'
 
 import EasyListView from './lib/EasyListView'
 import Styles from './Styles'
+import GridStyles from './GridStyles'
 
 const DATA_SIZE_PER_PAGE = 10
 
 export default class ListViewSample extends Component {
 
+  static propTypes = {
+    empty: PropTypes.bool,
+    error: PropTypes.bool,
+    noMore: PropTypes.bool,
+    column: PropTypes.number
+  }
+
+  static defaultProps = {
+    empty: false,
+    error: false,
+    noMore: false,
+    column: 1
+  }
+
   constructor(props) {
     super(props)
 
-    this.renderItem = this._renderItem.bind(this)
+    this.renderListItem = this._renderListItem.bind(this)
+    this.renderGridItem = this._renderGridItem.bind(this)
     this.onFetch = this._onFetch.bind(this)
   }
 
@@ -24,15 +41,16 @@ export default class ListViewSample extends Component {
       <EasyListView
         ref={component => this.listview = component}
         dataSizePerPage={DATA_SIZE_PER_PAGE}
-        rowHeight={50}
-        renderItem={this.renderItem}
+        column={this.props.column}
+        rowHeight={this.props.column === 1 ? 60 : Dimensions.get('window').width / 2}
+        renderItem={this.props.column === 1 ? this.renderListItem : this.renderGridItem}
         refreshHandler={this.onFetch}
         loadMoreHandler={this.onFetch}
       />
     )
   }
 
-  _renderItem(rowData, sectionID, rowID, highlightRow) {
+  _renderListItem(rowData, sectionID, rowID, highlightRow) {
     return (
       <View
         style={Styles.rowContainer}>
@@ -52,13 +70,62 @@ export default class ListViewSample extends Component {
     )
   }
 
+  _renderGridItem(index, rowData, sectionID, rowID, highlightRow) {
+    return (
+      <View
+        key={index}
+        style={GridStyles.rowContainer}>
+        <TouchableHighlight
+          style={{flex: 1}}
+          onPress= {() => alert(rowData)}>
+          <View
+            style={GridStyles.rowContent}>
+            <Text
+              style={GridStyles.rowTitle}>
+              {rowData}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+
   _onFetch(pageNo, success, failure) {
     this.timer = setTimeout(() => {
-      var list = []
-      for (i = (pageNo - 1) * DATA_SIZE_PER_PAGE; i < pageNo * DATA_SIZE_PER_PAGE; i++) {
-        list.push(i)
+      if (this.props.empty) {
+        success([])
       }
-      success(list)
+      else if (this.props.error) {
+        if (pageNo === 1) {
+          var list = []
+          for (i = (pageNo - 1) * DATA_SIZE_PER_PAGE; i < pageNo * DATA_SIZE_PER_PAGE; i++) {
+            list.push(i)
+          }
+          success(list)
+        }
+        else {
+          failure('load fail...', null)
+        }
+      }
+      else if (this.props.noMore) {
+        if (pageNo === 1) {
+          var list = []
+          for (i = (pageNo - 1) * DATA_SIZE_PER_PAGE; i < pageNo * DATA_SIZE_PER_PAGE; i++) {
+            list.push(i)
+          }
+          success(list)
+        }
+        else {
+          success([])
+        }
+      }
+      else {
+        var list = []
+        for (i = (pageNo - 1) * DATA_SIZE_PER_PAGE; i < pageNo * DATA_SIZE_PER_PAGE; i++) {
+          list.push(i)
+        }
+        success(list)
+      }
     }, 1000)
   }
 }

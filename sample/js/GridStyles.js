@@ -1,26 +1,24 @@
 import React from 'react-native'
+import {
+  Dimensions
+} from 'react-native'
 
 module.exports = React.StyleSheet.create({
   rowContainer: {
-    flex: 1,
     overflow: 'hidden',
-    height: 60,
-    flexDirection: 'column'
+    width: Dimensions.get('window').width / 2,
+    height: Dimensions.get('window').width / 2,
+    borderWidth: 0.3,
+    borderColor: '#bbbbbb'
   },
   rowContent: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    paddingLeft: 20,
-    paddingRight: 20
+    backgroundColor: 'white'
   },
   rowTitle: {
     color: '#333333',
     fontSize: 15
-  },
-  separate: {
-    height: 0.5,
-    backgroundColor: '#bbbbbb'
   }
 })

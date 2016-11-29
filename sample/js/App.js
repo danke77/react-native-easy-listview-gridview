@@ -56,19 +56,13 @@ export default class App extends Component {
       <View
         onLayout={() => getStatusBarHeight().then(result => this.setState({statusBarHeight: result.height}))}
         style = {styles.container}>
-        {
-          Platform.OS === 'android'
-          ? <View
-              style={{height: this.state.statusBarHeight, backgroundColor: '#222222'}}/>
-          : null
-        }
         <Navigator
           ref={component => this.navigator = component}
           initialRoute={{
             component: Samples
           }}
           renderScene={(route, navigator) => {
-            return <route.component navigator={navigator} {...route} {...route.passProps}/>
+            return <route.component navigator={navigator} {...route} {...route.params}/>
           }}/>
       </View>
     )
