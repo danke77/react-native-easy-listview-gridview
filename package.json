@@ -1,16 +1,19 @@
 {
   "name": "react-native-easy-listview-gridview",
-  "version": "1.0.0",
   "description": "A wrapper library for ListView and GridView in React Native",
-  "main": "./lib/index.js",
-  "scripts": {
-    "lint": "eslint -c .eslintrc . --ignore-path .gitignore",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danke77/react-native-easy-listview-gridview.git"
   },
+  "bugs": {
+    "url": "https://github.com/danke77/react-native-easy-listview-gridview/issues"
+  },
+  "homepage": "https://github.com/danke77/react-native-easy-listview-gridview#readme",
   "keywords": [
     "react-native-component",
     "react-component",
@@ -18,12 +21,12 @@
     "listview",
     "gridview"
   ],
+  "scripts": {
+    "lint": "eslint -c .eslintrc . --ignore-path .gitignore",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "danke77",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/danke77/react-native-easy-listview-gridview/issues"
-  },
-  "homepage": "https://github.com/danke77/react-native-easy-listview-gridview#readme",
   "dependencies": {
   },
   "devDependencies": {
