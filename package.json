@@ -1,8 +1,8 @@
 {
   "name": "react-native-easy-listview-gridview",
   "description": "A wrapper library for ListView and GridView in React Native",
-  "version": "1.0.0",
-  "main": "lib/index.js",
+  "version": "1.0.1",
+  "main": "lib/EasyListView.js",
   "files": [
     "lib"
   ],

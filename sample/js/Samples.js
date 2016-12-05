@@ -5,7 +5,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 
-import EasyListView from './lib/EasyListView'
+import EasyListView from 'react-native-easy-listview-gridview'
 import ListViewSample from './ListViewSample'
 import Styles from './Styles'
 

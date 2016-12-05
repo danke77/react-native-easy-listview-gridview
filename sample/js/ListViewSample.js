@@ -6,8 +6,7 @@ import {
   Dimensions
 } from 'react-native'
 
-import EasyListView from './lib/EasyListView'
-import EasyGridView from './lib/EasyGridView'
+import EasyListView from 'react-native-easy-listview-gridview'
 import Styles from './Styles'
 import GridStyles from './GridStyles'
 
@@ -38,10 +37,8 @@ export default class ListViewSample extends Component {
   }
 
   render() {
-    var ListViewComponent = this.props.column === 1 ? EasyListView : EasyGridView
-
     return (
-      <ListViewComponent
+      <EasyListView
         ref={component => this.listview = component}
         dataSizePerPage={DATA_SIZE_PER_PAGE}
         column={this.props.column}
