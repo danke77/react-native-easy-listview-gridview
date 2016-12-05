@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-native-easy-listview-gridview.svg)](https://badge.fury.io/js/react-native-easy-listview-gridview)
 
-This is a wrapper library for **ListView & GridView** in React Native. 
+This is a wrapper library for **ListView & GridView** in React Native.
 
 ### Sample
 
@@ -28,7 +28,7 @@ This is a wrapper library for **ListView & GridView** in React Native.
 ### Install
 
 1. Run `npm install react-native-easy-listview-gridview --save`
-2. import EasyListView from 'react-native-easy-listview-gridview'
+2. `import EasyListView from 'react-native-easy-listview-gridview'`
 
 ### Usage
 
@@ -153,7 +153,7 @@ export default class GridViewSample extends Component {
 }
 ```
 
-## Props
+### Props
 
 - **`isDataFixed`** _(Bool)_ - Whether disable to pull to refresh and load more, default is false.
 - **`autoRefresh`** _(Bool)_ - Whether call refresh in callback of `componentDidMount`, invalid when `isDataFixed` is true, default is true.
