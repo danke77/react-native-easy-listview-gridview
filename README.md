@@ -8,11 +8,11 @@ This is a wrapper library for **ListView & GridView** in React Native.
 
 ###### ListView
 
-![ListView_android](art/ListView_android.gif)
+![ListView_android](https://raw.githubusercontent.com/danke77/react-native-easy-listview-gridview/master/art/ListView_android.gif)
 
 ###### GridView
 
-![GridView_android](art/GridView_android.gif)
+![GridView_android](https://raw.githubusercontent.com/danke77/react-native-easy-listview-gridview/master/art/GridView_android.gif)
 
 ### Features
 
@@ -28,7 +28,7 @@ This is a wrapper library for **ListView & GridView** in React Native.
 ### Install
 
 1. Run `npm install react-native-easy-listview-gridview --save`
-2. import { EasyListView, EasyGridView } from 'react-native-easy-listview-gridview'
+2. import EasyListView from 'react-native-easy-listview-gridview'
 
 ### Usage
 
@@ -44,7 +44,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 
-import { EasyListView } from 'react-native-easy-listview-gridview'
+import EasyListView from 'react-native-easy-listview-gridview'
 
 export default class ListViewSample extends Component {
   constructor(props) {
@@ -103,7 +103,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 
-import { EasyGridView } from 'react-native-easy-listview-gridview'
+import EasyListView from 'react-native-easy-listview-gridview'
 
 export default class GridViewSample extends Component {
   constructor(props) {
@@ -116,7 +116,7 @@ export default class GridViewSample extends Component {
 
   render() {
     return (
-      <EasyGridView
+      <EasyListView
         ref={component => this.gridview = component}
         column={2}
         renderItem={this.renderGridItem}
