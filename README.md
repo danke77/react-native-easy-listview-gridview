@@ -1,6 +1,8 @@
 # react-native-easy-listview-gridview
 
-[![npm version](https://badge.fury.io/js/react-native-easy-listview-gridview.svg)](https://badge.fury.io/js/react-native-easy-listview-gridview)
+[![npm version](https://img.shields.io/npm/v/react-native-easy-listview-gridview.svg)](https://www.npmjs.com/package/react-native-easy-listview-gridview)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-easy-listview-gridview.svg)](https://www.npmjs.com/package/react-native-easy-listview-gridview)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-easy-listview-gridview.svg)](https://www.npmjs.com/package/react-native-easy-listview-gridview)
 
 This is a wrapper library for **ListView & GridView** in React Native.
 
